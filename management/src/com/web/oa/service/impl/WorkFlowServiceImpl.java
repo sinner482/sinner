@@ -129,21 +129,15 @@ public class WorkFlowServiceImpl implements WorkFlowService {
 	//查看审核信息
 	@Override
 	public List<Comment> findCommentByBaoxiaoBillId(long id) {
-		System.out.println("---------------------------"+id);
 		//拼接
 		String bussiness_key = Constants.BAOXIAO_KEY +"."+id;
-		
-		System.out.println("====================="+bussiness_key);
 		
 		HistoricProcessInstance pi = this.historyService
 				.createHistoricProcessInstanceQuery()
 				.processInstanceBusinessKey(bussiness_key)
 				.singleResult();
 		
-		System.out.println("---------------------------------------"+pi);
-		
 		List<Comment> list = this.taskService.getProcessInstanceComments(pi.getId());
-		System.out.println("======================="+list);
 		if(list!=null&&list.size()>0) {
 			return list;
 		}
